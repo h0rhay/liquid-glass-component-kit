@@ -84,6 +84,11 @@ jobs:
     
     - name: Build library
       run: npm run build
+      
+    - name: Copy built files to demo directory
+      run: |
+        cp dist/liquid-glass.js demo/
+        cp dist/style.css demo/
     
     - name: Deploy demo to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4

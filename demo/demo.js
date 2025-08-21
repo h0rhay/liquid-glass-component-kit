@@ -1,4 +1,4 @@
-import { applyLiquidGlass, cleanupAll } from '../lib/index.js';
+import { applyLiquidGlass, cleanupAll } from './liquid-glass.js';
 
 // Store cleanup functions for demo controls
 let currentCleanupFunctions = [];
