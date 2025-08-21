@@ -1,0 +1,100 @@
+/* Liquid Glass Component - Clean & Lightweight */
+
+/* Core glass effect - applies to both overlay and wrapper approaches */
+.liquid-glass,
+.liquid-glass-wrapper {
+  /* Glass background */
+  background: rgba(255, 255, 255, 0.05);
+  
+  /* Glass border */
+  border: 2px solid rgba(255, 255, 255, 0.33);
+  
+  /* Backdrop filter with optimized SVG filter */
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  
+  /* Glass depth shadows */
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 -5px 20px rgba(147, 147, 147, 0.1);
+    
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Glass overlay positioning (for regular elements) */
+.liquid-glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* Wrapper positioning (for input elements) */
+.liquid-glass-wrapper {
+  position: relative;
+  display: inline-block;
+  pointer-events: auto; /* Wrapper needs to allow interactions */
+}
+
+/* Specular highlights layer */
+.liquid-glass::before,
+.liquid-glass-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  
+  /* Specular highlight shadows */
+  box-shadow: 
+    inset 10px 10px 20px rgba(153, 192, 255, 0.1),
+    inset 2px 2px 5px rgba(195, 218, 255, 0.2),
+    inset -10px -10px 20px rgba(229, 253, 190, 0.1),
+    inset -2px -2px 30px rgba(247, 255, 226, 0.2);
+    
+  filter: brightness(98%);
+  border-radius: inherit;
+}
+
+/* Intensity variants - only change color properties */
+.intensity-subtle {
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+}
+
+.intensity-subtle::before {
+  box-shadow: 
+    inset 5px 5px 10px rgba(153, 192, 255, 0.05),
+    inset 1px 1px 3px rgba(195, 218, 255, 0.1),
+    inset -5px -5px 10px rgba(229, 253, 190, 0.05),
+    inset -1px -1px 15px rgba(247, 255, 226, 0.1);
+}
+
+.intensity-strong {
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+}
+
+.intensity-strong::before {
+  box-shadow: 
+    inset 15px 15px 30px rgba(153, 192, 255, 0.15),
+    inset 3px 3px 8px rgba(195, 218, 255, 0.3),
+    inset -15px -15px 30px rgba(229, 253, 190, 0.15),
+    inset -3px -3px 40px rgba(247, 255, 226, 0.3);
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .liquid-glass,
+  .liquid-glass-wrapper {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "liquid-glass-component-kit",
+  "version": "0.1.0",
+  "description": "A production-ready vanilla JS component for creating beautiful liquid glass effects on any HTML element",
+  "type": "module",
+  "main": "./dist/liquid-glass.umd.cjs",
+  "module": "./dist/liquid-glass.js",
+  "types": "./dist/liquid-glass.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/liquid-glass.js",
+      "require": "./dist/liquid-glass.umd.cjs",
+      "types": "./dist/liquid-glass.d.ts"
+    },
+    "./styles": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite demo",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint lib demo --ext .js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "glass",
+    "glassmorphism",
+    "liquid-glass",
+    "css-effects",
+    "ui-components",
+    "vanilla-js",
+    "backdrop-filter",
+    "web-components"
+  ],
+  "author": "George Clark",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h0rhay/liquid-glass-component-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/h0rhay/liquid-glass-component-kit/issues"
+  },
+  "homepage": "https://h0rhay.github.io/liquid-glass-component-kit/",
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "eslint": "^9.9.0",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.5.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
