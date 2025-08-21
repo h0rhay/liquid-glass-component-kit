@@ -1,8 +1,8 @@
-import { applyLiquidGlass, applyToMultiple, cleanupAll } from '../lib/index.js';
+import { applyLiquidGlass, cleanupAll } from '../lib/index.js';
 
 // Store cleanup functions for demo controls
 let currentCleanupFunctions = [];
-let currentOptions = { intensity: 'normal' };
+const currentOptions = { intensity: 'normal' };
 let effectsEnabled = true;
 
 // SVG filter parameters - optimized values
@@ -40,16 +40,16 @@ function applyEffects() {
         elements.forEach(selector => {
             const element = document.querySelector(selector);
             if (element) {
-                console.log(`Applying glass effect to:`, selector, element);
+                // console.log(`Applying glass effect to:`, selector, element);
                 const cleanup = applyLiquidGlass(element, currentOptions);
                 currentCleanupFunctions.push(cleanup);
             } else {
-                console.warn(`Element not found:`, selector);
+                // console.warn(`Element not found:`, selector);
             }
         });
-        console.log(`Applied liquid glass with options:`, currentOptions);
+        // console.log(`Applied liquid glass with options:`, currentOptions);
     } else {
-        console.log('Glass effects disabled');
+        // console.log('Glass effects disabled');
     }
 }
 
@@ -183,7 +183,7 @@ function updateSVGFilter() {
     const turbulence = document.querySelector('#liquidGlassFilter feTurbulence');
     const displacement1 = document.querySelector('#liquidGlassFilter feDisplacementMap');
     const displacement2 = document.querySelectorAll('#liquidGlassFilter feDisplacementMap')[1];
-    const feImage = document.querySelector('#liquidGlassFilter feImage');
+    // const feImage = document.querySelector('#liquidGlassFilter feImage');
     
     if (turbulence) {
         turbulence.setAttribute('baseFrequency', filterParams.baseFrequency.toString());
@@ -205,7 +205,7 @@ function updateSVGFilter() {
         }
     }
     
-    console.log('Updated SVG filter with:', filterParams);
+    // console.log('Updated SVG filter with:', filterParams);
 }
 
 // Remove all hover effects - animations now only apply to glass effect changes
@@ -214,8 +214,8 @@ function addInteractivityEffects() {
 }
 
 // Log for debugging
-console.log('Liquid Glass Demo loaded');
-console.log('Available functions:', { applyLiquidGlass, applyToMultiple, cleanupAll });
+// console.log('Liquid Glass Demo loaded');
+// console.log('Available functions:', { applyLiquidGlass, applyToMultiple, cleanupAll });
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
@@ -232,7 +232,7 @@ if (document.readyState === 'loading') {
 window.cleanupLiquidGlass = () => {
     currentCleanupFunctions.forEach(fn => fn());
     cleanupAll();
-    console.log('All liquid glass effects cleaned up');
+    // console.log('All liquid glass effects cleaned up');
 };
 
 // For easy debugging in dev tools
@@ -242,8 +242,8 @@ window.demoState = {
     toggleEffects: () => document.getElementById('masterToggle').click(),
     checkElements: () => {
         elements.forEach(selector => {
-            const el = document.querySelector(selector);
-            console.log(`${selector}:`, el ? `found, classes: ${el.className}` : 'NOT FOUND');
+            document.querySelector(selector);
+            // console.log(`${selector}:`, el ? `found, classes: ${el.className}` : 'NOT FOUND');
         });
     }
 };
