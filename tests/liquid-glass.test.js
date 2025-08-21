@@ -11,42 +11,42 @@ describe('Liquid Glass Component', () => {
   });
 
   it('applies liquid glass effect to element', () => {
-    const cleanup = applyLiquidGlass(testElement);
+    const effect = applyLiquidGlass(testElement);
     
     // Check that overlay was created with glass effect
     const overlay = testElement.querySelector('.liquid-glass');
     expect(overlay).toBeTruthy();
-    expect(typeof cleanup).toBe('function');
+    expect(typeof effect.remove).toBe('function');
     
-    cleanup();
+    effect.remove();
   });
 
   it('applies intensity variants correctly', () => {
-    const cleanup = applyLiquidGlass(testElement, { intensity: 'strong' });
+    const effect = applyLiquidGlass(testElement, { intensity: 'strong' });
     
     const overlay = testElement.querySelector('.liquid-glass');
     expect(overlay).toBeTruthy();
     expect(overlay.classList.contains('intensity-strong')).toBe(true);
     
-    cleanup();
+    effect.remove();
   });
 
   it('creates glass overlay', () => {
-    const cleanup = applyLiquidGlass(testElement);
+    const effect = applyLiquidGlass(testElement);
     
     const overlay = testElement.querySelector('.liquid-glass');
     expect(overlay).toBeTruthy();
     
-    cleanup();
+    effect.remove();
   });
 
   it('cleanup function removes effect', () => {
-    const cleanup = applyLiquidGlass(testElement);
+    const effect = applyLiquidGlass(testElement);
     
     const overlay = testElement.querySelector('.liquid-glass');
     expect(overlay).toBeTruthy();
     
-    cleanup();
+    effect.remove();
     
     const overlayAfterCleanup = testElement.querySelector('.liquid-glass');
     expect(overlayAfterCleanup).toBeFalsy();
@@ -61,27 +61,27 @@ describe('Liquid Glass Component', () => {
     
     elements.forEach(el => document.body.appendChild(el));
     
-    const cleanupFunctions = applyToMultiple(elements);
+    const effects = applyToMultiple(elements);
     
-    expect(cleanupFunctions).toHaveLength(3);
+    expect(effects).toHaveLength(3);
     elements.forEach(el => {
       const overlay = el.querySelector('.liquid-glass');
       expect(overlay).toBeTruthy();
     });
     
-    cleanupFunctions.forEach(cleanup => cleanup());
+    effects.forEach(effect => effect.remove());
   });
 
   it('handles input elements with wrapper', () => {
     const input = document.createElement('input');
     document.body.appendChild(input);
     
-    const cleanup = applyLiquidGlass(input);
+    const effect = applyLiquidGlass(input);
     
     // Input should be wrapped
     expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(true);
     
-    cleanup();
+    effect.remove();
     
     // Should be unwrapped
     expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(false);
