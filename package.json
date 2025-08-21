@@ -1,7 +1,7 @@
 {
   "name": "liquid-glass-component-kit",
   "version": "0.1.0",
-  "description": "A production-ready vanilla JS component for creating beautiful liquid glass effects on any HTML element",
+  "description": "Apple-inspired liquid glass morphism toolkit - Create stunning glassmorphism UI components with vanilla JavaScript",
   "type": "module",
   "main": "./dist/liquid-glass.umd.cjs",
   "module": "./dist/liquid-glass.js",

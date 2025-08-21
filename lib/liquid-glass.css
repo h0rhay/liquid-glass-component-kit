@@ -6,9 +6,6 @@
   /* Glass background */
   background: rgba(255, 255, 255, 0.05);
   
-  /* Glass border */
-  border: 2px solid rgba(255, 255, 255, 0.33);
-  
   /* Backdrop filter with optimized SVG filter */
   -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
   backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
@@ -95,6 +92,5 @@
   .liquid-glass,
   .liquid-glass-wrapper {
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 }

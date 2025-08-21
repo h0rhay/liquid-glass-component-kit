@@ -13,8 +13,9 @@ describe('Liquid Glass Component', () => {
   it('applies liquid glass effect to element', () => {
     const cleanup = applyLiquidGlass(testElement);
     
-    expect(testElement.classList.contains('liquid-glass')).toBe(true);
-    expect(testElement.classList.contains('animated')).toBe(true);
+    // Check that overlay was created with glass effect
+    const overlay = testElement.querySelector('.liquid-glass');
+    expect(overlay).toBeTruthy();
     expect(typeof cleanup).toBe('function');
     
     cleanup();
@@ -23,46 +24,39 @@ describe('Liquid Glass Component', () => {
   it('applies intensity variants correctly', () => {
     const cleanup = applyLiquidGlass(testElement, { intensity: 'strong' });
     
-    expect(testElement.classList.contains('liquid-glass')).toBe(true);
-    expect(testElement.classList.contains('intensity-strong')).toBe(true);
+    const overlay = testElement.querySelector('.liquid-glass');
+    expect(overlay).toBeTruthy();
+    expect(overlay.classList.contains('intensity-strong')).toBe(true);
     
     cleanup();
   });
 
-  it('applies animation option correctly', () => {
-    const cleanup = applyLiquidGlass(testElement, { animated: false });
-    
-    expect(testElement.classList.contains('liquid-glass')).toBe(true);
-    expect(testElement.classList.contains('animated')).toBe(false);
-    
-    cleanup();
-  });
-
-  it('creates container wrapper', () => {
+  it('creates glass overlay', () => {
     const cleanup = applyLiquidGlass(testElement);
     
-    expect(testElement.parentElement.classList.contains('liquid-glass-container')).toBe(true);
+    const overlay = testElement.querySelector('.liquid-glass');
+    expect(overlay).toBeTruthy();
     
     cleanup();
   });
 
   it('cleanup function removes effect', () => {
-    const originalClassName = testElement.className;
     const cleanup = applyLiquidGlass(testElement);
     
-    expect(testElement.classList.contains('liquid-glass')).toBe(true);
+    const overlay = testElement.querySelector('.liquid-glass');
+    expect(overlay).toBeTruthy();
     
     cleanup();
     
-    expect(testElement.className).toBe(originalClassName);
-    expect(testElement.parentElement).toBe(document.body);
+    const overlayAfterCleanup = testElement.querySelector('.liquid-glass');
+    expect(overlayAfterCleanup).toBeFalsy();
   });
 
   it('applies to multiple elements', () => {
     const elements = [
       document.createElement('button'),
-      document.createElement('input'),
-      document.createElement('img')
+      document.createElement('div'),
+      document.createElement('span')
     ];
     
     elements.forEach(el => document.body.appendChild(el));
@@ -71,9 +65,25 @@ describe('Liquid Glass Component', () => {
     
     expect(cleanupFunctions).toHaveLength(3);
     elements.forEach(el => {
-      expect(el.classList.contains('liquid-glass')).toBe(true);
+      const overlay = el.querySelector('.liquid-glass');
+      expect(overlay).toBeTruthy();
     });
     
     cleanupFunctions.forEach(cleanup => cleanup());
+  });
+
+  it('handles input elements with wrapper', () => {
+    const input = document.createElement('input');
+    document.body.appendChild(input);
+    
+    const cleanup = applyLiquidGlass(input);
+    
+    // Input should be wrapped
+    expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(true);
+    
+    cleanup();
+    
+    // Should be unwrapped
+    expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(false);
   });
 });

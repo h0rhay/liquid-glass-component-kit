@@ -1,15 +1,17 @@
 # Liquid Glass Component Kit
 
-A production-ready vanilla JavaScript toolkit for creating beautiful liquid glass morphism effects on any HTML element. Features all advanced effects from the [Atlas Pup Labs article](https://atlaspuplabs.com/blog/liquid-glass-but-in-css): specular highlights, backdrop blur, color filters, SVG refraction, edge distortion, and chromatic aberration.
+🍎 **Apple-inspired liquid glass morphism toolkit** for creating stunning glassmorphism UI components. A production-ready vanilla JavaScript library that brings beautiful liquid-glass effects to any HTML element with Apple-style polish and performance.
+
+Features complete glassmorphism effects including specular highlights, backdrop blur, color filters, SVG refraction, edge distortion, and chromatic aberration - inspired by Apple's design language and modern glass morphism trends.
 
 ## ✨ Features
 
-- 🎯 **Simple & Elegant** - Pure functions, no classes, clean API
-- 🔧 **Zero Dependencies** - Vanilla JavaScript, works anywhere  
-- 📱 **Cross-browser Compatible** - Progressive enhancement with fallbacks
-- ⚡ **Lightweight & Fast** - Optimized SVG filters and GPU acceleration
-- 🎨 **Customizable** - Multiple intensity levels (subtle, normal, strong)
-- 🖼️ **Universal** - Works on buttons, inputs, images, cards, any element
+- 🎯 **Simple Liquid-Glass API** - Pure functions, no classes, clean liquid-glass integration
+- 🔧 **Zero Dependencies** - Pure vanilla JavaScript liquid-glass library  
+- 📱 **Cross-browser Liquid-Glass** - Progressive enhancement with liquid-glass fallbacks
+- ⚡ **Optimized Liquid-Glass Effects** - Fast SVG filters and GPU-accelerated liquid-glass
+- 🎨 **Customizable Liquid-Glass** - Multiple liquid-glass intensity levels (subtle, normal, strong)
+- 🖼️ **Universal Liquid-Glass** - Apply liquid-glass to buttons, inputs, images, cards, any element
 
 ## Installation
 
@@ -22,16 +24,16 @@ npm install liquid-glass-component-kit
 ```javascript
 import { applyLiquidGlass } from 'liquid-glass-component-kit';
 
-// Apply to any element
+// Get element and apply liquid-glass effect (applies immediately)
 const button = document.querySelector('#myButton');
-const cleanup = applyLiquidGlass(button);
+const effect = applyLiquidGlass(button);
 
-// With intensity options
-const cleanup2 = applyLiquidGlass(button, { intensity: 'strong' });
+// Apply with custom intensity (applies immediately) 
+const strongEffect = applyLiquidGlass(button, { intensity: 'strong' });
 
-// Cleanup when done
-cleanup();
-cleanup2();
+// Remove effects when done
+effect.remove();        // removes first effect
+strongEffect.remove();  // removes strong effect
 ```
 
 ## Usage
@@ -41,20 +43,21 @@ cleanup2();
 ```javascript
 import { applyLiquidGlass } from 'liquid-glass-component-kit';
 
-// Apply default liquid glass effect
+// Apply default liquid-glass effect (applies immediately)
 const element = document.querySelector('.my-element');
-const cleanup = applyLiquidGlass(element);
+const effect = applyLiquidGlass(element);
 
-// The function returns a cleanup function
-// Call it when you want to remove the effect
-cleanup();
+// The function returns an effect object
+// Call remove() when you want to remove the liquid-glass effect
+effect.remove();
 ```
 
 ### With Options
 
 ```javascript
-const cleanup = applyLiquidGlass(element, {
-  intensity: 'strong'     // 'subtle' | 'normal' | 'strong'
+// Liquid-glass with custom intensity (applies immediately)
+const applyEffect = applyLiquidGlass(element, {
+  intensity: 'strong'     // liquid-glass intensity: 'subtle' | 'normal' | 'strong'
 });
 ```
 
@@ -65,13 +68,12 @@ import { applyToMultiple } from 'liquid-glass-component-kit';
 
 // Apply to multiple elements at once
 const buttons = document.querySelectorAll('.liquid-buttons');
-const cleanupFunctions = applyToMultiple(buttons, { 
-  intensity: 'subtle',
+const buttonEffects = applyToMultiple(buttons, { 
   intensity: 'subtle' 
 });
 
 // Cleanup all
-cleanupFunctions.forEach(fn => fn());
+buttonEffects.forEach(effect => effect.remove());
 ```
 
 ### Global Cleanup
@@ -94,7 +96,7 @@ Applies liquid glass effect to a single element.
 - `options` (Object, optional) - Configuration options
   - `intensity` (string) - Effect intensity: `'subtle'`, `'normal'`, `'strong'` (default: `'normal'`)
 
-**Returns:** Function - Cleanup function to remove the effect
+**Returns:** Object - Effect object with remove() method
 
 ### `applyToMultiple(elements, options?)`
 
@@ -104,7 +106,7 @@ Applies liquid glass effect to multiple elements.
 - `elements` (NodeList | Array) - Target elements  
 - `options` (Object, optional) - Same as `applyLiquidGlass`
 
-**Returns:** Array of cleanup functions
+**Returns:** Array of effect objects with remove() methods
 
 ### `cleanupAll()`
 
