@@ -1,7 +1,7 @@
 import { applyLiquidGlass, cleanupAll } from './liquid-glass.js';
 
-// Store cleanup functions for demo controls
-let currentCleanupFunctions = [];
+// Store effect objects for demo controls
+let currentEffects = [];
 const currentOptions = { intensity: 'normal' };
 let effectsEnabled = true;
 
@@ -32,8 +32,8 @@ function initDemo() {
 
 function applyEffects() {
     // Clean up existing effects first
-    currentCleanupFunctions.forEach(fn => fn());
-    currentCleanupFunctions = [];
+    currentEffects.forEach(effect => effect.remove());
+    currentEffects = [];
     
     // Only apply if effects are enabled
     if (effectsEnabled) {
@@ -41,8 +41,8 @@ function applyEffects() {
             const element = document.querySelector(selector);
             if (element) {
                 // console.log(`Applying glass effect to:`, selector, element);
-                const cleanup = applyLiquidGlass(element, currentOptions);
-                currentCleanupFunctions.push(cleanup);
+                const effect = applyLiquidGlass(element, currentOptions);
+                currentEffects.push(effect);
             } else {
                 // console.warn(`Element not found:`, selector);
             }
@@ -230,7 +230,7 @@ if (document.readyState === 'loading') {
 
 // Global cleanup for development
 window.cleanupLiquidGlass = () => {
-    currentCleanupFunctions.forEach(fn => fn());
+    currentEffects.forEach(effect => effect.remove());
     cleanupAll();
     // console.log('All liquid glass effects cleaned up');
 };
