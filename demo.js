@@ -217,19 +217,38 @@ function addInteractivityEffects() {
 
 // Mobile device orientation effects - simulate sunlight on glass edges
 function setupOrientationEffects() {
-    if (!window.DeviceOrientationEvent) return;
+    // Check for DeviceOrientationEvent support
+    if (!window.DeviceOrientationEvent) {
+        return;
+    }
     
-    window.addEventListener('deviceorientation', (event) => {
-        // Get tilt values
-        const tiltX = event.beta || 0;  // front-to-back tilt (-180 to 180)
-        const tiltY = event.gamma || 0; // left-to-right tilt (-90 to 90)
-        
-        // Convert tilt to gradient angle (0 to 360 degrees)
-        const gradientAngle = Math.atan2(tiltY, tiltX) * (180 / Math.PI) + 180;
-        
-        // Update gradient border for all glass elements
-        updateGradientBorders(gradientAngle);
-    }, { passive: true });
+    // For iOS 13+ we need to request permission
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(permissionState => {
+                if (permissionState === 'granted') {
+                    addOrientationListener();
+                }
+            })
+            .catch(() => {
+                // Permission denied or error
+            });
+    } else {
+        // For other browsers, just add the listener
+        addOrientationListener();
+    }
+    
+    function addOrientationListener() {
+        window.addEventListener('deviceorientation', (event) => {
+            const tiltX = event.beta || 0;  // front-to-back tilt
+            const tiltY = event.gamma || 0; // left-to-right tilt
+            
+            // Convert tilt to gradient angle
+            const gradientAngle = Math.atan2(tiltY, tiltX) * (180 / Math.PI) + 180;
+            
+            updateGradientBorders(gradientAngle);
+        }, { passive: true });
+    }
 }
 
 // Desktop mouse tracking effects - gradient follows cursor
