@@ -1,8 +1,15 @@
 /* Liquid Glass Component - Clean & Lightweight */
 
-/* Core glass effect - applies to both overlay and wrapper approaches */
-.liquid-glass,
-.liquid-glass-wrapper {
+/* Core glass effect - universal overlay approach */
+.liquid-glass {
+  /* Positioning for overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  
   /* Glass background */
   background: rgba(255, 255, 255, 0.05);
   
@@ -15,8 +22,89 @@
     0 5px 20px rgba(0, 0, 0, 0.1),
     0 -5px 20px rgba(147, 147, 147, 0.1);
     
-  overflow: hidden;
+  /* Critical: ensure overlay doesn't interfere with interactions */
   pointer-events: none;
+  overflow: hidden;
+  
+  /* Inherit border radius from positioned element */
+  border-radius: inherit;
+}
+
+/* Direct glass effect for void elements (inputs) - no backdrop-filter to preserve text readability */
+input.liquid-glass-direct,
+img.liquid-glass-direct,
+textarea.liquid-glass-direct,
+select.liquid-glass-direct {
+  /* Glass background with higher opacity for visibility without backdrop-filter */
+  background: rgba(255, 255, 255, 0.15);
+  
+  /* No backdrop-filter to avoid blurring input text */
+  
+  /* Enhanced glass depth shadows with specular highlights built-in */
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 -5px 20px rgba(147, 147, 147, 0.1),
+    /* Specular highlights */
+    inset 10px 10px 20px rgba(153, 192, 255, 0.1),
+    inset 2px 2px 5px rgba(195, 218, 255, 0.2),
+    inset -10px -10px 20px rgba(229, 253, 190, 0.1),
+    inset -2px -2px 30px rgba(247, 255, 226, 0.2);
+    
+  /* Glass border */
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+
+/* Direct glass intensity variants */
+input.liquid-glass-direct.intensity-subtle,
+textarea.liquid-glass-direct.intensity-subtle,
+select.liquid-glass-direct.intensity-subtle {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 3px 15px rgba(0, 0, 0, 0.08),
+    0 -3px 15px rgba(147, 147, 147, 0.08),
+    inset 5px 5px 10px rgba(153, 192, 255, 0.05),
+    inset 1px 1px 3px rgba(195, 218, 255, 0.1),
+    inset -5px -5px 10px rgba(229, 253, 190, 0.05),
+    inset -1px -1px 15px rgba(247, 255, 226, 0.1);
+}
+
+input.liquid-glass-direct.intensity-strong,
+textarea.liquid-glass-direct.intensity-strong,
+select.liquid-glass-direct.intensity-strong {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 -8px 25px rgba(147, 147, 147, 0.15),
+    inset 15px 15px 30px rgba(153, 192, 255, 0.15),
+    inset 3px 3px 8px rgba(195, 218, 255, 0.3),
+    inset -15px -15px 30px rgba(229, 253, 190, 0.15),
+    inset -3px -3px 40px rgba(247, 255, 226, 0.3);
+}
+
+/* Apple-style gradient border with rounded corners support */
+.liquid-glass::after,
+.liquid-glass-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.2) 75%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Glass overlay positioning (for regular elements) */
@@ -30,11 +118,65 @@
   border-radius: inherit;
 }
 
-/* Wrapper positioning (for input elements) */
-.liquid-glass-wrapper {
+/* Direct glass effect for void elements (inputs, images, etc.) */
+input.liquid-glass-direct,
+img.liquid-glass-direct,
+textarea.liquid-glass-direct,
+select.liquid-glass-direct,
+[class*="liquid-glass-direct"] {
+  /* Glass background */
+  background: rgba(255, 255, 255, 0.05);
+  
+  /* Backdrop filter with optimized SVG filter */
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  
+  /* Glass depth shadows */
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 -5px 20px rgba(147, 147, 147, 0.1),
+    /* Specular highlights built into shadow */
+    inset 10px 10px 20px rgba(153, 192, 255, 0.1),
+    inset 2px 2px 5px rgba(195, 218, 255, 0.2),
+    inset -10px -10px 20px rgba(229, 253, 190, 0.1),
+    inset -2px -2px 30px rgba(247, 255, 226, 0.2);
+    
+  /* Apple-style gradient border that respects border-radius */
+  border: 2px solid rgba(255, 255, 255, 0.6);
   position: relative;
-  display: inline-block;
-  pointer-events: auto; /* Wrapper needs to allow interactions */
+}
+
+/* Direct glass intensity variants */
+input.liquid-glass-direct.intensity-subtle,
+img.liquid-glass-direct.intensity-subtle,
+textarea.liquid-glass-direct.intensity-subtle,
+select.liquid-glass-direct.intensity-subtle,
+[class*="liquid-glass-direct"].intensity-subtle {
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 -5px 20px rgba(147, 147, 147, 0.1),
+    inset 5px 5px 10px rgba(153, 192, 255, 0.05),
+    inset 1px 1px 3px rgba(195, 218, 255, 0.1),
+    inset -5px -5px 10px rgba(229, 253, 190, 0.05),
+    inset -1px -1px 15px rgba(247, 255, 226, 0.1);
+}
+
+input.liquid-glass-direct.intensity-strong,
+img.liquid-glass-direct.intensity-strong,
+textarea.liquid-glass-direct.intensity-strong,
+select.liquid-glass-direct.intensity-strong,
+[class*="liquid-glass-direct"].intensity-strong {
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  box-shadow: 
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 -5px 20px rgba(147, 147, 147, 0.1),
+    inset 15px 15px 30px rgba(153, 192, 255, 0.15),
+    inset 3px 3px 8px rgba(195, 218, 255, 0.3),
+    inset -15px -15px 30px rgba(229, 253, 190, 0.15),
+    inset -3px -3px 40px rgba(247, 255, 226, 0.3);
 }
 
 /* Specular highlights layer */
@@ -92,5 +234,15 @@
   .liquid-glass,
   .liquid-glass-wrapper {
     background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .liquid-glass::after,
+  .liquid-glass-wrapper::after {
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0.15) 25%,
+      rgba(255, 255, 255, 0.15) 75%,
+      rgba(255, 255, 255, 0.6) 100%
+    );
   }
 }

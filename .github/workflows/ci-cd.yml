@@ -85,10 +85,11 @@ jobs:
     - name: Build library
       run: npm run build
       
-    - name: Copy built files to demo directory
+    - name: Copy built files to demo directory and update imports
       run: |
         cp dist/liquid-glass.js demo/
         cp dist/style.css demo/
+        sed -i "s|from '../lib/index.js'|from './liquid-glass.js'|g" demo/demo.js
     
     - name: Deploy demo to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
