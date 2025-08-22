@@ -8,14 +8,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: -1;
   
   /* Glass background */
   background: rgba(255, 255, 255, 0.05);
   
-  /* Backdrop filter with optimized SVG filter */
-  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  /* Base backdrop filter - works everywhere */
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
   
   /* Glass depth shadows */
   box-shadow: 
@@ -36,8 +36,8 @@ button .liquid-glass,
 input[type="button"] .liquid-glass,
 input[type="submit"] .liquid-glass,
 input[type="reset"] .liquid-glass {
-  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
-  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
   z-index: -1;
   top: -1px;
   left: -1px;
@@ -108,9 +108,9 @@ select.liquid-glass-direct,
   /* Glass background */
   background: rgba(255, 255, 255, 0.05);
   
-  /* Backdrop filter with optimized SVG filter */
-  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  /* Base backdrop filter - works everywhere */
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px);
   
   /* Glass depth shadows */
   box-shadow: 
@@ -133,8 +133,8 @@ img.liquid-glass-direct.intensity-subtle,
 textarea.liquid-glass-direct.intensity-subtle,
 select.liquid-glass-direct.intensity-subtle,
 [class*="liquid-glass-direct"].intensity-subtle {
-  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
   box-shadow: 
     0 5px 20px rgba(0, 0, 0, 0.1),
     0 -5px 20px rgba(147, 147, 147, 0.1),
@@ -149,8 +149,8 @@ img.liquid-glass-direct.intensity-strong,
 textarea.liquid-glass-direct.intensity-strong,
 select.liquid-glass-direct.intensity-strong,
 [class*="liquid-glass-direct"].intensity-strong {
-  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
   box-shadow: 
     0 5px 20px rgba(0, 0, 0, 0.1),
     0 -5px 20px rgba(147, 147, 147, 0.1),
@@ -184,8 +184,8 @@ select.liquid-glass-direct.intensity-strong,
 
 /* Intensity variants - only change color properties */
 .intensity-subtle {
-  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
 }
 
 .intensity-subtle::before {
@@ -197,8 +197,8 @@ select.liquid-glass-direct.intensity-strong,
 }
 
 .intensity-strong {
-  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
-  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
 }
 
 .intensity-strong::before {
@@ -215,8 +215,8 @@ button .liquid-glass.intensity-subtle,
 input[type="button"] .liquid-glass.intensity-subtle,
 input[type="submit"] .liquid-glass.intensity-subtle,
 input[type="reset"] .liquid-glass.intensity-subtle {
-  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
-  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px);
 }
 
 button .liquid-glass.intensity-strong,
@@ -224,8 +224,58 @@ button .liquid-glass.intensity-strong,
 input[type="button"] .liquid-glass.intensity-strong,
 input[type="submit"] .liquid-glass.intensity-strong,
 input[type="reset"] .liquid-glass.intensity-strong {
-  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
-  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
+}
+
+/* Progressive enhancement - SVG distortion filters where supported */
+@supports (backdrop-filter: url(#test)) {
+  .liquid-glass,
+  input.liquid-glass-direct,
+  img.liquid-glass-direct, 
+  textarea.liquid-glass-direct,
+  select.liquid-glass-direct,
+  [class*="liquid-glass-direct"] {
+    -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+    backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
+  }
+  
+  button .liquid-glass,
+  .btn .liquid-glass,
+  input[type="button"] .liquid-glass,
+  input[type="submit"] .liquid-glass, 
+  input[type="reset"] .liquid-glass {
+    -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+    backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+  }
+  
+  .intensity-subtle {
+    -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+    backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
+  }
+  
+  .intensity-strong {
+    -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+    backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
+  }
+  
+  button .liquid-glass.intensity-subtle,
+  .btn .liquid-glass.intensity-subtle,
+  input[type="button"] .liquid-glass.intensity-subtle,
+  input[type="submit"] .liquid-glass.intensity-subtle,
+  input[type="reset"] .liquid-glass.intensity-subtle {
+    -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
+    backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
+  }
+  
+  button .liquid-glass.intensity-strong,
+  .btn .liquid-glass.intensity-strong,
+  input[type="button"] .liquid-glass.intensity-strong,
+  input[type="submit"] .liquid-glass.intensity-strong,
+  input[type="reset"] .liquid-glass.intensity-strong {
+    -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
+    backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
+  }
 }
 
 /* iOS Safari fallback - backdrop-filter without url() filters */
