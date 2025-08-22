@@ -19,6 +19,20 @@ Features complete glassmorphism effects including specular highlights, backdrop 
 npm install liquid-glass-component-kit
 ```
 
+## Importing Styles
+
+The package includes CSS styles that need to be imported at root for the liquid glass effects to work. You can import them in several ways:
+
+### Using CSS Import
+```css
+@import 'liquid-glass-component-kit/styles';
+```
+
+### Using JavaScript Import
+```javascript
+import 'liquid-glass-component-kit/styles';
+```
+
 ## Quick Start
 
 ### Vanilla JavaScript
@@ -199,6 +213,12 @@ applyToMultiple(cards, { intensity: 'normal' });
 ### Installation for React Projects
 ```bash
 npm install liquid-glass-component-kit react
+```
+
+### Import Styles
+First, import the required CSS styles:
+```javascript
+import 'liquid-glass-component-kit/styles';
 ```
 
 ### Basic React Hook
