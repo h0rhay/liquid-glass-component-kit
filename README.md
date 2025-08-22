@@ -114,22 +114,40 @@ Removes all liquid glass effects and cleans up SVG filters.
 
 ## Effects Included
 
-This implementation includes all liquid glass effects from the original article:
+### Core Glass Effects (All Browsers)
+- **Specular Highlights** - Multi-layered inset shadows for realistic depth
+- **Backdrop Blur** - Gaussian blur with progressive enhancement
+- **Color Filters** - Saturation and contrast adjustments for glass tinting
+- **Glass Depth** - Box shadows and background transparency
+- **Gradient Borders** - Subtle light reflections on edges
 
-- **Specular Highlights** - Multi-layered inset shadows for depth
-- **Backdrop Blur** - Gaussian blur with browser fallbacks
-- **Color Filters** - Saturation and contrast adjustments  
-- **SVG Refraction** - Advanced refraction using SVG filters
-- **Edge Distortion** - Radial distortion mapping
-- **Ripple Distortion** - Turbulence-based ripple effects
-- **Chromatic Aberration** - RGB channel separation for realism
+### Enhanced Effects (Desktop + Android)
+- **SVG Refraction** - Advanced refraction using SVG displacement filters
+- **Edge Distortion** - Radial distortion mapping with feTurbulence
+- **Ripple Distortion** - Turbulence-based organic glass distortion
+- **Chromatic Aberration** - RGB channel separation for realistic glass behavior
+
+All effects are applied using progressive enhancement, ensuring every user gets a beautiful glass experience appropriate for their device capabilities.
 
 ## Browser Support
 
-- **Chrome/Edge 76+** - Full support with all effects
-- **Firefox 103+** - Full support with all effects
-- **Safari 14+** - Full support with all effects
-- **Older browsers** - Graceful fallback to basic glass effect
+### Desktop Browsers
+- **Chrome/Edge 76+** - Full support with all effects including SVG distortion
+- **Firefox 103+** - Full support with all effects including SVG distortion  
+- **Safari 14+** - Full support with all effects including SVG distortion
+
+### Mobile Browsers
+- **iOS Safari/Chrome** - Glass effects with blur and saturation (no SVG distortion)
+- **Android Chrome** - Full support with all effects including SVG distortion
+- **Older browsers** - Graceful fallback to basic glass styling
+
+### Progressive Enhancement
+The library uses CSS `@supports` queries to provide:
+- **Base layer**: Beautiful glass effects (blur, saturation, highlights) that work everywhere
+- **Enhanced layer**: Advanced SVG distortion filters on supported browsers
+- **Fallback layer**: Semi-transparent styling when backdrop-filter isn't supported
+
+**Technical Note**: iOS Safari and Chrome don't support `backdrop-filter` with `url()` SVG filters. The library automatically detects this limitation using CSS `@supports` queries and provides appropriate fallbacks, ensuring consistent visual quality across all platforms without requiring JavaScript device detection.
 
 ## Performance
 
