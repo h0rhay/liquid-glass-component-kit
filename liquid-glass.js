@@ -1,32 +1,16 @@
-let u = !1;
-function d(t, i = {}) {
-  const { intensity: n = "normal" } = i;
-  h();
-  const e = p(t);
-  return ["INPUT", "IMG", "BR", "HR"].includes(t.tagName) ? { remove: c(t, n, e) } : { remove: l(t, n, e) };
+let a = !1;
+function d(t, e = {}) {
+  const { intensity: s = "normal" } = e;
+  A();
+  const i = p(t);
+  return { remove: o(t, s, i) };
 }
-function c(t, i, n) {
-  const e = document.createElement("div");
-  e.className = `liquid-glass-wrapper ${i !== "normal" ? `intensity-${i}` : ""}`;
-  const s = getComputedStyle(t);
-  return Object.assign(e.style, {
-    width: s.width === "auto" ? t.offsetWidth + "px" : s.width,
-    height: s.height === "auto" ? t.offsetHeight + "px" : s.height,
-    margin: s.margin,
-    borderRadius: s.borderRadius
-  }), t.parentNode.insertBefore(e, t), e.appendChild(t), Object.assign(t.style, {
-    margin: "0",
-    width: "100%",
-    height: "100%",
-    background: "transparent",
-    border: "none"
-  }), () => b(t, e, n);
-}
-function l(t, i, n) {
-  const e = getComputedStyle(t);
-  e.position === "static" && (t.style.position = "relative"), e.zIndex === "auto" && (t.style.zIndex = "0");
-  const s = document.createElement("div");
-  return s.className = `liquid-glass ${i !== "normal" ? `intensity-${i}` : ""}`, t.appendChild(s), () => m(t, s, n);
+function o(t, e, s) {
+  const i = getComputedStyle(t);
+  i.position === "static" && (t.style.position = "relative"), i.zIndex === "auto" && (t.style.zIndex = "0");
+  const r = ["INPUT", "IMG", "BR", "HR", "AREA", "BASE", "COL", "EMBED", "LINK", "META", "PARAM", "SOURCE", "TRACK", "WBR"].includes(t.tagName);
+  let n = null;
+  return r ? (t.classList.add("liquid-glass-direct"), e !== "normal" && t.classList.add(`intensity-${e}`), console.log("Applied direct glass effect to void element:", t.tagName, t)) : (n = document.createElement("div"), n.className = `liquid-glass ${e !== "normal" ? `intensity-${e}` : ""}`, t.appendChild(n), console.log("Applied glass overlay to regular element:", t.tagName, t)), () => b(t, n, s);
 }
 function p(t) {
   return {
@@ -40,58 +24,65 @@ function p(t) {
     border: t.style.border
   };
 }
-function b(t, i, n) {
-  i.parentNode && (i.parentNode.insertBefore(t, i), i.remove()), Object.keys(n).forEach((e) => {
-    e === "className" ? t.className = n[e] : t.style[e] = n[e];
+function b(t, e, s) {
+  e && e.parentNode && e.remove(), t.classList.remove("liquid-glass-direct", "intensity-subtle", "intensity-strong"), ["position", "zIndex"].forEach((i) => {
+    t.style[i] = s[i];
   });
 }
-function m(t, i, n) {
-  i.parentElement && i.remove(), t.className = n.className, ["position", "zIndex"].forEach((e) => {
-    t.style[e] = n[e];
+function A() {
+  if (a || document.getElementById("liquidGlassFilter"))
+    return;
+  const t = m();
+  document.body.appendChild(t), a = !0;
+}
+function m() {
+  const t = "http://www.w3.org/2000/svg", e = document.createElementNS(t, "svg");
+  e.setAttribute("width", "0"), e.setAttribute("height", "0"), e.style.display = "none";
+  const s = document.createElementNS(t, "defs"), i = c(t, "liquidGlassFilter", {
+    baseFrequency: "0.0005",
+    numOctaves: "4",
+    scale: "25"
+  }), r = c(t, "liquidGlassFilterButton", {
+    baseFrequency: "0.0005",
+    numOctaves: "4",
+    scale: "5"
   });
+  return s.appendChild(i), s.appendChild(r), e.appendChild(s), e;
+}
+function c(t, e, s) {
+  const i = document.createElementNS(t, "filter");
+  i.setAttribute("id", e), i.setAttribute("x", "-20%"), i.setAttribute("y", "-20%"), i.setAttribute("width", "140%"), i.setAttribute("height", "140%");
+  const r = document.createElementNS(t, "feTurbulence");
+  r.setAttribute("baseFrequency", s.baseFrequency), r.setAttribute("numOctaves", s.numOctaves), r.setAttribute("result", "noise"), i.appendChild(r);
+  const n = document.createElementNS(t, "feDisplacementMap");
+  return n.setAttribute("in", "SourceGraphic"), n.setAttribute("in2", "noise"), n.setAttribute("scale", s.scale), n.setAttribute("result", "displaced"), i.appendChild(n), f(i, t), i;
+}
+function f(t, e) {
+  const s = document.createElementNS(e, "feColorMatrix");
+  s.setAttribute("in", "displaced"), s.setAttribute("values", "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"), s.setAttribute("result", "red"), t.appendChild(s);
+  const i = document.createElementNS(e, "feColorMatrix");
+  i.setAttribute("in", "displaced"), i.setAttribute("values", "0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"), i.setAttribute("result", "green"), t.appendChild(i);
+  const r = document.createElementNS(e, "feColorMatrix");
+  r.setAttribute("in", "displaced"), r.setAttribute("values", "0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"), r.setAttribute("result", "blue"), t.appendChild(r);
+  const n = document.createElementNS(e, "feBlend");
+  n.setAttribute("in", "red"), n.setAttribute("in2", "green"), n.setAttribute("mode", "screen"), n.setAttribute("result", "comp1"), t.appendChild(n);
+  const l = document.createElementNS(e, "feBlend");
+  l.setAttribute("in", "blue"), l.setAttribute("in2", "comp1"), l.setAttribute("mode", "screen"), l.setAttribute("result", "comp2"), t.appendChild(l);
+  const u = document.createElementNS(e, "feBlend");
+  u.setAttribute("in", "displaced"), u.setAttribute("in2", "comp2"), u.setAttribute("mode", "lighten"), t.appendChild(u);
+}
+function y(t, e = {}) {
+  return Array.from(t).map((s) => d(s, e));
 }
 function h() {
-  if (u || document.getElementById("liquidGlassFilter"))
-    return;
-  const t = f();
-  document.body.appendChild(t), u = !0;
-}
-function f() {
-  const t = "http://www.w3.org/2000/svg", i = document.createElementNS(t, "svg");
-  i.setAttribute("width", "0"), i.setAttribute("height", "0"), i.style.display = "none";
-  const n = document.createElementNS(t, "defs"), e = document.createElementNS(t, "filter");
-  e.setAttribute("id", "liquidGlassFilter"), e.setAttribute("x", "-20%"), e.setAttribute("y", "-20%"), e.setAttribute("width", "140%"), e.setAttribute("height", "140%");
-  const s = document.createElementNS(t, "feTurbulence");
-  s.setAttribute("baseFrequency", "0.003"), s.setAttribute("numOctaves", "2"), s.setAttribute("result", "noise"), e.appendChild(s);
-  const r = document.createElementNS(t, "feDisplacementMap");
-  return r.setAttribute("in", "SourceGraphic"), r.setAttribute("in2", "noise"), r.setAttribute("scale", "10"), r.setAttribute("result", "displaced"), e.appendChild(r), A(e, t), n.appendChild(e), i.appendChild(n), i;
-}
-function A(t, i) {
-  const n = document.createElementNS(i, "feColorMatrix");
-  n.setAttribute("in", "displaced"), n.setAttribute("values", "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"), n.setAttribute("result", "red"), t.appendChild(n);
-  const e = document.createElementNS(i, "feColorMatrix");
-  e.setAttribute("in", "displaced"), e.setAttribute("values", "0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"), e.setAttribute("result", "green"), t.appendChild(e);
-  const s = document.createElementNS(i, "feColorMatrix");
-  s.setAttribute("in", "displaced"), s.setAttribute("values", "0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"), s.setAttribute("result", "blue"), t.appendChild(s);
-  const r = document.createElementNS(i, "feBlend");
-  r.setAttribute("in", "red"), r.setAttribute("in2", "green"), r.setAttribute("mode", "screen"), r.setAttribute("result", "comp1"), t.appendChild(r);
-  const a = document.createElementNS(i, "feBlend");
-  a.setAttribute("in", "blue"), a.setAttribute("in2", "comp1"), a.setAttribute("mode", "screen"), a.setAttribute("result", "comp2"), t.appendChild(a);
-  const o = document.createElementNS(i, "feBlend");
-  o.setAttribute("in", "displaced"), o.setAttribute("in2", "comp2"), o.setAttribute("mode", "lighten"), t.appendChild(o);
-}
-function g(t, i = {}) {
-  return Array.from(t).map((n) => d(n, i));
-}
-function y() {
-  var i;
-  const t = (i = document.getElementById("liquidGlassFilter")) == null ? void 0 : i.parentElement;
-  t && t.remove(), u = !1;
+  var e;
+  const t = (e = document.getElementById("liquidGlassFilter")) == null ? void 0 : e.parentElement;
+  t && t.remove(), a = !1;
 }
 export {
   d as applyLiquidGlass,
-  g as applyToMultiple,
-  y as cleanupAll,
+  y as applyToMultiple,
+  h as cleanupAll,
   d as default
 };
 //# sourceMappingURL=liquid-glass.js.map
