@@ -82,8 +82,8 @@ select.liquid-glass-direct.intensity-strong {
   right: 0;
   bottom: 0;
   border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(135deg,
+  padding: 1px;
+  background: linear-gradient(var(--gradient-angle, 135deg),
     rgba(255, 255, 255, 0.9) 0%,
     rgba(255, 255, 255, 0.2) 25%,
     rgba(255, 255, 255, 0.2) 75%,
@@ -95,6 +95,7 @@ select.liquid-glass-direct.intensity-strong {
   -webkit-mask-composite: xor;
   pointer-events: none;
   z-index: 2;
+  transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 

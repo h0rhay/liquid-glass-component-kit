@@ -1,4 +1,5 @@
 import { applyLiquidGlass, cleanupAll } from '../lib/index.js';
+import { debounce } from './utils/debounce.js';
 
 // Store effect objects for demo controls
 let currentEffects = [];
@@ -208,9 +209,67 @@ function updateSVGFilter() {
     // console.log('Updated SVG filter with:', filterParams);
 }
 
-// Remove all hover effects - animations now only apply to glass effect changes
+// Add interactive effects for mobile tilt and desktop mouse tracking
 function addInteractivityEffects() {
-    // No hover effects - animations are for the glass transitions only
+    setupOrientationEffects();
+    setupMouseTrackingEffects();
+}
+
+// Mobile device orientation effects - simulate sunlight on glass edges
+function setupOrientationEffects() {
+    if (!window.DeviceOrientationEvent) return;
+    
+    window.addEventListener('deviceorientation', (event) => {
+        // Get tilt values
+        const tiltX = event.beta || 0;  // front-to-back tilt (-180 to 180)
+        const tiltY = event.gamma || 0; // left-to-right tilt (-90 to 90)
+        
+        // Convert tilt to gradient angle (0 to 360 degrees)
+        const gradientAngle = Math.atan2(tiltY, tiltX) * (180 / Math.PI) + 180;
+        
+        // Update gradient border for all glass elements
+        updateGradientBorders(gradientAngle);
+    }, { passive: true });
+}
+
+// Desktop mouse tracking effects - gradient follows cursor
+function setupMouseTrackingEffects() {
+    const updateGradients = debounce((mouseX, mouseY) => {
+        const glassElements = document.querySelectorAll('.liquid-glass');
+        glassElements.forEach(element => {
+            updateGradientForElement(element, mouseX, mouseY);
+        });
+    }, 16); // ~60fps
+    
+    document.addEventListener('mousemove', (event) => {
+        updateGradients(event.clientX, event.clientY);
+    }, { passive: true });
+    
+    // Reset gradients on mouse leave with smooth transition
+    document.addEventListener('mouseleave', () => {
+        updateGradientBorders(135);
+    });
+}
+
+// Update gradient borders for all glass elements
+function updateGradientBorders(angle) {
+    const glassElements = document.querySelectorAll('.liquid-glass');
+    glassElements.forEach(element => {
+        element.style.setProperty('--gradient-angle', `${angle}deg`);
+    });
+}
+
+// Update gradient for specific element based on mouse position
+function updateGradientForElement(element, mouseX, mouseY) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Calculate angle from element center to mouse (normalized to 0-360)
+    let angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI) + 90;
+    if (angle < 0) angle += 360;
+    
+    element.style.setProperty('--gradient-angle', `${Math.round(angle)}deg`);
 }
 
 // Log for debugging
