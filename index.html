@@ -143,35 +143,21 @@
         }
 
         .demo-button {
-            background: 
-                linear-gradient(135deg, rgba(0, 122, 255, 0.8), rgba(0, 86, 204, 0.8)),
-                repeating-linear-gradient(45deg, 
-                    rgba(255, 255, 255, 0.1) 0px, 
-                    rgba(255, 255, 255, 0.1) 2px, 
-                    transparent 2px, 
-                    transparent 8px),
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 50%);
+            background: #007AFF;
             border: none;
             padding: 12px 24px;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
             margin: 6px;
-            transition: all 0.2s ease;
+            transition: background-color 0.3s ease;
+            background-clip: padding-box;
         }
 
         .demo-button:hover {
-            background: 
-                linear-gradient(135deg, rgba(0, 86, 204, 0.9), rgba(0, 60, 150, 0.9)),
-                repeating-linear-gradient(45deg, 
-                    rgba(255, 255, 255, 0.15) 0px, 
-                    rgba(255, 255, 255, 0.15) 2px, 
-                    transparent 2px, 
-                    transparent 8px),
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%);
-            transform: translateY(-1px);
+            background: #0056CC;
         }
         
         .demo-input {
