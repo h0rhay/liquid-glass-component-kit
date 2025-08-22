@@ -278,39 +278,6 @@ input[type="reset"] .liquid-glass.intensity-strong {
   }
 }
 
-/* iOS Safari fallback - backdrop-filter without url() filters */
-@media screen and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait),
-       screen and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
-  .liquid-glass,
-  input.liquid-glass-direct,
-  img.liquid-glass-direct,
-  textarea.liquid-glass-direct,
-  select.liquid-glass-direct,
-  [class*="liquid-glass-direct"] {
-    -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) !important;
-    backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) !important;
-  }
-  
-  button .liquid-glass,
-  .btn .liquid-glass,
-  input[type="button"] .liquid-glass,
-  input[type="submit"] .liquid-glass,
-  input[type="reset"] .liquid-glass {
-    -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) !important;
-    backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) !important;
-  }
-  
-  .intensity-subtle {
-    -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) !important;
-    backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) !important;
-  }
-  
-  .intensity-strong {
-    -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) !important;
-    backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) !important;
-  }
-}
-
 /* Fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
   .liquid-glass {
