@@ -99,3 +99,7 @@ Uses **Vitest with jsdom** environment for:
 - Effect application across different scenarios
 
 The test suite covers the hybrid approach patterns and ensures proper cleanup of dynamically created elements and SVG filters.
+
+## Working practices:
+
+- We never use Calude labels for commit messages.

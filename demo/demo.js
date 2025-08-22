@@ -217,42 +217,35 @@ function addInteractivityEffects() {
 
 // Mobile device orientation effects - simulate sunlight on glass edges
 function setupOrientationEffects() {
-    console.log('Setting up orientation effects...');
-    
     // Check for DeviceOrientationEvent support
     if (!window.DeviceOrientationEvent) {
-        console.log('DeviceOrientationEvent not supported');
         return;
     }
     
     // For iOS 13+ we need to request permission
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        console.log('Requesting device orientation permission...');
         DeviceOrientationEvent.requestPermission()
             .then(permissionState => {
-                console.log('Permission state:', permissionState);
                 if (permissionState === 'granted') {
                     addOrientationListener();
                 }
             })
-            .catch(console.error);
+            .catch(() => {
+                // Permission denied or error
+            });
     } else {
         // For other browsers, just add the listener
         addOrientationListener();
     }
     
     function addOrientationListener() {
-        console.log('Adding orientation listener...');
         window.addEventListener('deviceorientation', (event) => {
             const tiltX = event.beta || 0;  // front-to-back tilt
             const tiltY = event.gamma || 0; // left-to-right tilt
             
-            console.log('Device tilt - X:', tiltX, 'Y:', tiltY);
-            
             // Convert tilt to gradient angle
             const gradientAngle = Math.atan2(tiltY, tiltX) * (180 / Math.PI) + 180;
             
-            console.log('Gradient angle:', gradientAngle);
             updateGradientBorders(gradientAngle);
         }, { passive: true });
     }
