@@ -220,6 +220,30 @@
             display: block;
         }
 
+        .demo-image-xl {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .images-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .image-demo.large {
+            position: relative;
+            display: block;
+        }
+
         .glass-pane {
             position: absolute;
             top: 20%;
@@ -488,6 +512,14 @@
             .slider-grid {
                 grid-template-columns: 1fr;
             }
+
+            .images-container {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-image-xl {
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -549,26 +581,26 @@
                         <div class="slider-grid">
                             <div class="slider-control">
                                 <label for="baseFrequency">Base Frequency</label>
-                                <input type="range" id="baseFrequency" min="0.0001" max="0.01" step="0.0001" value="0.003">
-                                <span class="slider-value">0.003</span>
+                                <input type="range" id="baseFrequency" min="0.0001" max="0.01" step="0.0001" value="0.0005">
+                                <span class="slider-value">0.0005</span>
                             </div>
                             
                             <div class="slider-control">
                                 <label for="numOctaves">Octaves</label>
-                                <input type="range" id="numOctaves" min="1" max="4" step="1" value="2">
-                                <span class="slider-value">2</span>
+                                <input type="range" id="numOctaves" min="1" max="4" step="1" value="4">
+                                <span class="slider-value">4</span>
                             </div>
                             
                             <div class="slider-control">
                                 <label for="displacement1Scale">Turbulence Scale</label>
-                                <input type="range" id="displacement1Scale" min="0" max="50" step="1" value="3">
-                                <span class="slider-value">3</span>
+                                <input type="range" id="displacement1Scale" min="0" max="50" step="1" value="25">
+                                <span class="slider-value">25</span>
                             </div>
                             
                             <div class="slider-control">
                                 <label for="displacement2Scale">Distortion Scale</label>
-                                <input type="range" id="displacement2Scale" min="0" max="50" step="1" value="3">
-                                <span class="slider-value">3</span>
+                                <input type="range" id="displacement2Scale" min="0" max="50" step="1" value="10">
+                                <span class="slider-value">10</span>
                             </div>
                             
                             <div class="slider-control">
@@ -602,15 +634,17 @@
                     <input class="demo-input" id="input3" placeholder="Password" type="password" value="••••••••" />
                 </div>
                 
-                <div class="demo-card">
-                    <h3>Images</h3>
-                    <div class="image-demo">
-                        <img class="demo-image-large" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop&crop=center" alt="Large image 1" />
-                        <div class="glass-pane" id="img1"></div>
-                    </div>
-                    <div class="image-demo">
-                        <img class="demo-image-large" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=200&fit=crop&crop=center" alt="Large image 2" />
-                        <div class="glass-pane" id="img2"></div>
+                <div class="demo-card full-width">
+                    <h3>Interactive Glass Panes - Drag to Move</h3>
+                    <div class="images-container">
+                        <div class="image-demo large">
+                            <img class="demo-image-xl" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&crop=center" alt="Mountain landscape" />
+                            <div class="glass-pane" id="img1"></div>
+                        </div>
+                        <div class="image-demo large">
+                            <img class="demo-image-xl" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop&crop=center" alt="Forest scene" />
+                            <div class="glass-pane" id="img2"></div>
+                        </div>
                     </div>
                 </div>
                 
