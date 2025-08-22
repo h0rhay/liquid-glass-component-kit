@@ -38,32 +38,9 @@ input[type="submit"] .liquid-glass,
 input[type="reset"] .liquid-glass {
   -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
   backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+  z-index: -1;
 }
 
-/* Direct glass effect for void elements (inputs) - no backdrop-filter to preserve text readability */
-input.liquid-glass-direct,
-img.liquid-glass-direct,
-textarea.liquid-glass-direct,
-select.liquid-glass-direct {
-  /* Glass background with higher opacity for visibility without backdrop-filter */
-  background: rgba(255, 255, 255, 0.15);
-  
-  /* No backdrop-filter to avoid blurring input text */
-  
-  /* Enhanced glass depth shadows with specular highlights built-in */
-  box-shadow: 
-    0 5px 20px rgba(0, 0, 0, 0.1),
-    0 -5px 20px rgba(147, 147, 147, 0.1),
-    /* Specular highlights */
-    inset 10px 10px 20px rgba(153, 192, 255, 0.1),
-    inset 2px 2px 5px rgba(195, 218, 255, 0.2),
-    inset -10px -10px 20px rgba(229, 253, 190, 0.1),
-    inset -2px -2px 30px rgba(247, 255, 226, 0.2);
-    
-  /* Glass border */
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  position: relative;
-}
 
 /* Direct glass intensity variants */
 input.liquid-glass-direct.intensity-subtle,
@@ -93,8 +70,7 @@ select.liquid-glass-direct.intensity-strong {
 }
 
 /* Apple-style gradient border with rounded corners support */
-.liquid-glass::after,
-.liquid-glass-wrapper::after {
+.liquid-glass::after {
   content: '';
   position: absolute;
   top: 0;
@@ -117,16 +93,6 @@ select.liquid-glass-direct.intensity-strong {
   z-index: 2;
 }
 
-/* Glass overlay positioning (for regular elements) */
-.liquid-glass {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  border-radius: inherit;
-}
 
 /* Direct glass effect for void elements (inputs, images, etc.) */
 input.liquid-glass-direct,
@@ -190,8 +156,7 @@ select.liquid-glass-direct.intensity-strong,
 }
 
 /* Specular highlights layer */
-.liquid-glass::before,
-.liquid-glass-wrapper::before {
+.liquid-glass::before {
   content: '';
   position: absolute;
   top: 0;
@@ -260,13 +225,11 @@ input[type="reset"] .liquid-glass.intensity-strong {
 
 /* Fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
-  .liquid-glass,
-  .liquid-glass-wrapper {
+  .liquid-glass {
     background: rgba(255, 255, 255, 0.1);
   }
   
-  .liquid-glass::after,
-  .liquid-glass-wrapper::after {
+  .liquid-glass::after {
     background: linear-gradient(135deg,
       rgba(255, 255, 255, 0.6) 0%,
       rgba(255, 255, 255, 0.15) 25%,
