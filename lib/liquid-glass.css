@@ -30,6 +30,16 @@
   border-radius: inherit;
 }
 
+/* Button-specific glass overlay with reduced distortion to avoid border artifacts */
+button .liquid-glass,
+.btn .liquid-glass,
+input[type="button"] .liquid-glass,
+input[type="submit"] .liquid-glass,
+input[type="reset"] .liquid-glass {
+  -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+  backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
+}
+
 /* Direct glass effect for void elements (inputs) - no backdrop-filter to preserve text readability */
 input.liquid-glass-direct,
 img.liquid-glass-direct,
@@ -227,6 +237,25 @@ select.liquid-glass-direct.intensity-strong,
     inset 3px 3px 8px rgba(195, 218, 255, 0.3),
     inset -15px -15px 30px rgba(229, 253, 190, 0.15),
     inset -3px -3px 40px rgba(247, 255, 226, 0.3);
+}
+
+/* Button-specific intensity variants with reduced distortion filter */
+button .liquid-glass.intensity-subtle,
+.btn .liquid-glass.intensity-subtle,
+input[type="button"] .liquid-glass.intensity-subtle,
+input[type="submit"] .liquid-glass.intensity-subtle,
+input[type="reset"] .liquid-glass.intensity-subtle {
+  -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
+  backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
+}
+
+button .liquid-glass.intensity-strong,
+.btn .liquid-glass.intensity-strong,
+input[type="button"] .liquid-glass.intensity-strong,
+input[type="submit"] .liquid-glass.intensity-strong,
+input[type="reset"] .liquid-glass.intensity-strong {
+  -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
+  backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
 }
 
 /* Fallback for browsers without backdrop-filter */
