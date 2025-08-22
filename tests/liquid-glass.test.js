@@ -72,18 +72,18 @@ describe('Liquid Glass Component', () => {
     effects.forEach(effect => effect.remove());
   });
 
-  it('handles input elements with wrapper', () => {
+  it('handles input elements with direct glass effect', () => {
     const input = document.createElement('input');
     document.body.appendChild(input);
     
     const effect = applyLiquidGlass(input);
     
-    // Input should be wrapped
-    expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(true);
+    // Input should have direct glass class applied
+    expect(input.classList.contains('liquid-glass-direct')).toBe(true);
     
     effect.remove();
     
-    // Should be unwrapped
-    expect(input.parentElement.classList.contains('liquid-glass-wrapper')).toBe(false);
+    // Direct glass class should be removed
+    expect(input.classList.contains('liquid-glass-direct')).toBe(false);
   });
 });
