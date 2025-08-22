@@ -16,7 +16,7 @@ export default defineConfig({
       }
     },
     sourcemap: true,
-    emptyOutDir: true
+    emptyOutDir: false
   },
   server: {
     open: '/demo/'

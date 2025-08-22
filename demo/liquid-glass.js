@@ -69,7 +69,7 @@ function y(t, e = {}) {
   return Array.from(t).map((i) => a(i, e));
 }
 function h() {
-  var e;
+  let e;
   const t = (e = document.getElementById("liquidGlassFilter")) == null ? void 0 : e.parentElement;
   t && t.remove(), c = !1;
 }

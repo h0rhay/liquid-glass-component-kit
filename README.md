@@ -21,6 +21,7 @@ npm install liquid-glass-component-kit
 
 ## Quick Start
 
+### Vanilla JavaScript
 ```javascript
 import { applyLiquidGlass } from 'liquid-glass-component-kit';
 
@@ -34,6 +35,16 @@ const strongEffect = applyLiquidGlass(button, { intensity: 'strong' });
 // Remove effects when done
 effect.remove();        // removes first effect
 strongEffect.remove();  // removes strong effect
+```
+
+### React
+```jsx
+import { useLiquidGlass } from 'liquid-glass-component-kit/react';
+
+function MyButton() {
+  const [glassRef] = useLiquidGlass({ intensity: 'strong' });
+  return <button ref={glassRef}>Click me</button>;
+}
 ```
 
 ## Usage
@@ -180,7 +191,85 @@ applyToMultiple(images, { intensity: 'subtle' });
 ### Cards/Containers
 ```javascript
 const cards = document.querySelectorAll('.card');
-applyToMultiple(cards, { intensity: 'normal', intensity: 'subtle' });
+applyToMultiple(cards, { intensity: 'normal' });
+```
+
+## React Usage
+
+### Installation for React Projects
+```bash
+npm install liquid-glass-component-kit react
+```
+
+### Basic React Hook
+```jsx
+import { useLiquidGlass } from 'liquid-glass-component-kit/react';
+
+function GlassButton({ children, intensity = 'normal' }) {
+  const [ref] = useLiquidGlass({ intensity });
+  return <button ref={ref}>{children}</button>;
+}
+```
+
+### React Hook with Controls
+```jsx
+import { useLiquidGlass } from 'liquid-glass-component-kit/react';
+
+function InteractiveCard() {
+  const [ref, { removeEffect, reapplyEffect }] = useLiquidGlass({ 
+    intensity: 'strong' 
+  });
+  
+  return (
+    <div ref={ref} className="card">
+      <h3>Glass Card</h3>
+      <button onClick={removeEffect}>Remove Effect</button>
+      <button onClick={reapplyEffect}>Reapply Effect</button>
+    </div>
+  );
+}
+```
+
+### Multiple Elements Hook
+```jsx
+import { useLiquidGlassMultiple } from 'liquid-glass-component-kit/react';
+import { useRef, useEffect } from 'react';
+
+function GlassGallery() {
+  const imagesRef = useRef([]);
+  const { applyToElements } = useLiquidGlassMultiple({ intensity: 'subtle' });
+  
+  useEffect(() => {
+    applyToElements(imagesRef.current);
+  }, [applyToElements]);
+  
+  return (
+    <div>
+      {[1, 2, 3].map(i => (
+        <img 
+          key={i}
+          ref={el => imagesRef.current[i-1] = el}
+          src={`image${i}.jpg`}
+          alt={`Glass effect ${i}`}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+### TypeScript Support
+```tsx
+import { useLiquidGlass, LiquidGlassOptions } from 'liquid-glass-component-kit/react';
+
+interface Props {
+  intensity?: LiquidGlassOptions['intensity'];
+}
+
+function TypedGlassComponent({ intensity }: Props) {
+  const [ref] = useLiquidGlass({ intensity });
+  return <div ref={ref}>TypeScript glass effect</div>;
+}
 ```
 
 ## Development
