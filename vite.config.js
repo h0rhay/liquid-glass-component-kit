@@ -3,6 +3,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   build: {
+    target: ['es2015', 'chrome60', 'firefox60', 'safari11'],
     lib: {
       entry: resolve(__dirname, 'lib/index.js'),
       name: 'LiquidGlass',
