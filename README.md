@@ -1,5 +1,7 @@
 # Liquid Glass Component Kit
 
+**[🚀 View Live Demo](https://h0rhay.github.io/liquid-glass-component-kit/)** | **[📦 npm Package](https://www.npmjs.com/package/liquid-glass-component-kit)**
+
 🍎 **Apple-inspired liquid glass morphism toolkit** for creating stunning glassmorphism UI components.
 
 _Simply wrap buttons, images, form elements etc. Ensure they are positioned over a BG image, and voila!_
@@ -51,6 +53,8 @@ import 'liquid-glass-component-kit/styles';
 ```
 
 ## Quick Start
+
+> **💡 Tip**: Try the [interactive demo](https://h0rhay.github.io/liquid-glass-component-kit/) to see all effects in action!
 
 ### Vanilla JavaScript
 ```javascript
