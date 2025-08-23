@@ -346,3 +346,46 @@ input[type="reset"] .liquid-glass.intensity-strong {
     -webkit-filter: saturate(140%) contrast(140%) brightness(96%) blur(2px) !important;
   }
 }
+.
+/* Additional mobile-specific fallbacks for iOS/Android Chrome */
+/* This targets mobile devices that may have inconsistent backdrop-filter support */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.25) !important;
+    filter: saturate(130%) contrast(125%) brightness(97%) !important;
+    -webkit-filter: saturate(130%) contrast(125%) brightness(97%) !important;
+  }
+  
+  .liquid-glass::after {
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.4) 25%,
+      rgba(255, 255, 255, 0.4) 75%,
+      rgba(255, 255, 255, 0.95) 100%
+    ) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  /* Mobile glass panes get blur since no text */
+  .glass-pane {
+    filter: saturate(130%) contrast(125%) brightness(97%) blur(2px) !important;
+    -webkit-filter: saturate(130%) contrast(125%) brightness(97%) blur(2px) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  /* Mobile inputs/buttons - no blur to preserve text */
+  input.liquid-glass-direct,
+  textarea.liquid-glass-direct,
+  select.liquid-glass-direct {
+    filter: saturate(130%) contrast(125%) brightness(97%) !important;
+    -webkit-filter: saturate(130%) contrast(125%) brightness(97%) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 2px solid rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  /* Images can handle blur on mobile */
+  img.liquid-glass-direct {
+    filter: saturate(130%) contrast(125%) brightness(97%) blur(1px) !important;
+    -webkit-filter: saturate(130%) contrast(125%) brightness(97%) blur(1px) !important;
+  }
+}
