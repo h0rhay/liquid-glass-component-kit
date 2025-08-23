@@ -10,7 +10,7 @@ function o(t, e, i) {
   n.position === "static" && (t.style.position = "relative"), n.zIndex === "auto" && (t.style.zIndex = "0");
   const r = ["INPUT", "IMG", "BR", "HR", "AREA", "BASE", "COL", "EMBED", "LINK", "META", "PARAM", "SOURCE", "TRACK", "WBR"].includes(t.tagName);
   let s = null;
-  return r ? (t.classList.add("liquid-glass-direct"), e !== "normal" && t.classList.add(`intensity-${e}`)) : (s = document.createElement("div"), s.className = `liquid-glass ${e !== "normal" ? `intensity-${e}` : ""}`, t.appendChild(s)), () => b(t, s, i);
+  return r ? (t.classList.add("liquid-glass-direct"), e !== "normal" && t.classList.add("intensity-".concat(e))) : (s = document.createElement("div"), s.className = "liquid-glass ".concat(e !== "normal" ? "intensity-".concat(e) : ""), t.appendChild(s)), () => b(t, s, i);
 }
 function p(t) {
   return {
