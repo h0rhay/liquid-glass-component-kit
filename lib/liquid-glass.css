@@ -229,7 +229,8 @@ input[type="reset"] .liquid-glass.intensity-strong {
 }
 
 /* Progressive enhancement - SVG distortion filters where supported */
-@supports (backdrop-filter: url(#test)) {
+/* Exclude mobile devices where SVG filters in backdrop-filter can break the blur */
+@supports (backdrop-filter: url(#test)) and (hover: hover) and (pointer: fine) {
   .liquid-glass,
   input.liquid-glass-direct,
   img.liquid-glass-direct, 
