@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop SVG Filter Debug</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .test-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .test-1 {
+            backdrop-filter: blur(2.5px);
+            -webkit-backdrop-filter: blur(2.5px);
+        }
+        
+        .test-2 {
+            backdrop-filter: blur(2.5px) url(#liquidGlassFilter);
+            -webkit-backdrop-filter: blur(2.5px) url(#liquidGlassFilter);
+        }
+        
+        /* Test the @supports queries */
+        @supports (backdrop-filter: url(#test)) {
+            .supports-svg-basic {
+                border: 3px solid lime;
+            }
+        }
+        
+        @supports (backdrop-filter: url(#test)) and (hover: hover) {
+            .supports-svg-hover {
+                border: 3px solid orange;
+            }
+        }
+        
+        @supports (backdrop-filter: url(#test)) and (hover: hover) and (pointer: fine) {
+            .supports-svg-full {
+                border: 3px solid red;
+            }
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Filter (same as in component) -->
+    <svg width="0" height="0" style="display: none;">
+        <defs>
+            <filter id="liquidGlassFilter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence baseFrequency="0.0005" numOctaves="4" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" result="displaced"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="header">
+        <h3>Desktop SVG Filter Debug</h3>
+        <div id="support-result">Testing...</div>
+    </div>
+    
+    <div class="test-box test-1 supports-svg-basic supports-svg-hover supports-svg-full">
+        <strong>Test 1:</strong> blur(2.5px) only<br>
+        <small>Green border = @supports (backdrop-filter: url(#test))<br>
+        Orange border = + (hover: hover)<br>
+        Red border = + (pointer: fine)</small>
+    </div>
+    
+    <div class="test-box test-2">
+        <strong>Test 2:</strong> blur(2.5px) url(#liquidGlassFilter)<br>
+        <small>Should have distortion if SVG filters work</small>
+    </div>
+    
+    <script>
+        const supportResult = document.getElementById('support-result');
+        
+        const supportsBackdropFilter = CSS.supports('backdrop-filter', 'blur(1px)');
+        const supportsSVGFilter = CSS.supports('backdrop-filter', 'url(#test)');
+        const supportsHover = CSS.supports('(hover: hover)');
+        const supportsPointer = CSS.supports('(pointer: fine)');
+        const supportsFullQuery = CSS.supports('(backdrop-filter: url(#test)) and (hover: hover) and (pointer: fine)');
+        
+        supportResult.innerHTML = `
+            backdrop-filter: ${supportsBackdropFilter ? '✅' : '❌'}<br>
+            backdrop-filter url(): ${supportsSVGFilter ? '✅' : '❌'}<br>
+            hover: hover: ${supportsHover ? '✅' : '❌'}<br>
+            pointer: fine: ${supportsPointer ? '✅' : '❌'}<br>
+            Full query: ${supportsFullQuery ? '✅' : '❌'}<br>
+            User Agent: ${navigator.userAgent.substring(0, 60)}...
+        `;
+    </script>
+</body>
+</html>
