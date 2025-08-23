@@ -1,4 +1,4 @@
-import { applyLiquidGlass, cleanupAll } from './liquid-glass.js';
+import { applyLiquidGlass, cleanupAll } from '../lib/index.js';
 
 // Store effect objects for demo controls
 let currentEffects = [];

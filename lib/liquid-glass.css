@@ -228,9 +228,10 @@ input[type="reset"] .liquid-glass.intensity-strong {
   backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
 }
 
-/* Progressive enhancement - SVG distortion filters where supported */
-/* Exclude mobile devices where SVG filters in backdrop-filter can break the blur */
-@supports (backdrop-filter: url(#test)) and (hover: hover) and (pointer: fine) {
+/* Progressive enhancement - SVG distortion filters for desktop only */
+/* Apply SVG filters only on larger screens (desktop) to avoid mobile/tablet issues */
+@supports (backdrop-filter: url(#test)) {
+  @media (min-width: 1024px) {
   .liquid-glass,
   input.liquid-glass-direct,
   img.liquid-glass-direct, 
@@ -276,6 +277,7 @@ input[type="reset"] .liquid-glass.intensity-strong {
   input[type="reset"] .liquid-glass.intensity-strong {
     -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
     backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
+  }
   }
 }
 

@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "npm run build:demo && vite demo",
+    "dev": "vite demo",
     "dev:watch": "npm run build:demo && vite demo --watch",
     "build": "vite build && vite build -c vite.react.config.js && npm run build:types && npm run build:demo",
     "build:types": "cp lib/react.d.ts dist/react.d.ts",
