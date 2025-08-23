@@ -699,7 +699,7 @@ cleanupFunctions.forEach(fn => fn());</div>
     <script type="module" src="./demo.js"></script>
     
     <script>
-        // Make glass panes draggable
+        // Make glass panes draggable with mouse and touch support
         document.addEventListener('DOMContentLoaded', () => {
             const glassPanes = document.querySelectorAll('.glass-pane');
             
@@ -707,25 +707,37 @@ cleanupFunctions.forEach(fn => fn());</div>
                 let isDragging = false;
                 let startX, startY, startLeft, startTop;
                 
-                pane.addEventListener('mousedown', (e) => {
+                // Helper function to get coordinates from mouse or touch event
+                const getEventCoords = (e) => {
+                    if (e.touches && e.touches.length > 0) {
+                        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    }
+                    return { x: e.clientX, y: e.clientY };
+                };
+                
+                // Start drag handler (mouse and touch)
+                const handleDragStart = (e) => {
                     isDragging = true;
                     const rect = pane.getBoundingClientRect();
                     const parentRect = pane.offsetParent.getBoundingClientRect();
+                    const coords = getEventCoords(e);
                     
-                    startX = e.clientX;
-                    startY = e.clientY;
+                    startX = coords.x;
+                    startY = coords.y;
                     startLeft = rect.left - parentRect.left;
                     startTop = rect.top - parentRect.top;
                     
                     pane.style.position = 'absolute';
                     e.preventDefault();
-                });
+                };
                 
-                document.addEventListener('mousemove', (e) => {
+                // Move handler (mouse and touch)
+                const handleDragMove = (e) => {
                     if (!isDragging) return;
                     
-                    const deltaX = e.clientX - startX;
-                    const deltaY = e.clientY - startY;
+                    const coords = getEventCoords(e);
+                    const deltaX = coords.x - startX;
+                    const deltaY = coords.y - startY;
                     
                     const newLeft = startLeft + deltaX;
                     const newTop = startTop + deltaY;
@@ -737,11 +749,25 @@ cleanupFunctions.forEach(fn => fn());</div>
                     
                     pane.style.left = Math.max(0, Math.min(newLeft, maxLeft)) + 'px';
                     pane.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
-                });
+                    
+                    e.preventDefault(); // Prevent scrolling on touch
+                };
                 
-                document.addEventListener('mouseup', () => {
+                // End drag handler
+                const handleDragEnd = () => {
                     isDragging = false;
-                });
+                };
+                
+                // Mouse events
+                pane.addEventListener('mousedown', handleDragStart);
+                document.addEventListener('mousemove', handleDragMove);
+                document.addEventListener('mouseup', handleDragEnd);
+                
+                // Touch events
+                pane.addEventListener('touchstart', handleDragStart, { passive: false });
+                document.addEventListener('touchmove', handleDragMove, { passive: false });
+                document.addEventListener('touchend', handleDragEnd);
+                document.addEventListener('touchcancel', handleDragEnd);
             });
         });
         
