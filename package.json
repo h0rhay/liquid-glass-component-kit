@@ -1,6 +1,6 @@
 {
   "name": "liquid-glass-component-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Apple-inspired liquid glass morphism toolkit - Create stunning glassmorphism UI components with vanilla JavaScript",
   "type": "module",
   "main": "./dist/liquid-glass.umd.cjs",
