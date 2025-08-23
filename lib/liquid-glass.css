@@ -278,18 +278,71 @@ input[type="reset"] .liquid-glass.intensity-strong {
   }
 }
 
-/* Fallback for browsers without backdrop-filter */
+/* Progressive enhancement fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
   .liquid-glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    /* Apply saturation/contrast to glass overlay, but NO blur to preserve text */
+    filter: saturate(120%) contrast(120%) brightness(98%);
+    -webkit-filter: saturate(120%) contrast(120%) brightness(98%);
   }
   
+  /* Enhanced glass border and background for better glass effect */
   .liquid-glass::after {
     background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.6) 0%,
-      rgba(255, 255, 255, 0.15) 25%,
-      rgba(255, 255, 255, 0.15) 75%,
-      rgba(255, 255, 255, 0.6) 100%
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.3) 25%,
+      rgba(255, 255, 255, 0.3) 75%,
+      rgba(255, 255, 255, 0.9) 100%
     );
+    /* Add subtle shadow to simulate depth */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  
+  /* For decorative glass panes (no text), we can use blur */
+  .glass-pane {
+    filter: saturate(120%) contrast(120%) brightness(98%) blur(1px) !important;
+    -webkit-filter: saturate(120%) contrast(120%) brightness(98%) blur(1px) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+  }
+  
+  /* Direct glass elements - preserve text legibility */
+  input.liquid-glass-direct,
+  textarea.liquid-glass-direct,
+  select.liquid-glass-direct {
+    /* No blur on text elements, just color effects */
+    filter: saturate(120%) contrast(120%) brightness(98%);
+    -webkit-filter: saturate(120%) contrast(120%) brightness(98%);
+    background: rgba(255, 255, 255, 0.25);
+    /* Enhanced border for glass effect */
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Images can handle blur */
+  img.liquid-glass-direct {
+    filter: saturate(120%) contrast(120%) brightness(98%) blur(0.5px);
+    -webkit-filter: saturate(120%) contrast(120%) brightness(98%) blur(0.5px);
+  }
+  
+  /* Intensity variants - preserve text legibility */
+  .intensity-subtle {
+    filter: saturate(110%) contrast(110%) brightness(99%) !important;
+    -webkit-filter: saturate(110%) contrast(110%) brightness(99%) !important;
+  }
+  
+  .intensity-strong {
+    filter: saturate(140%) contrast(140%) brightness(96%) !important;
+    -webkit-filter: saturate(140%) contrast(140%) brightness(96%) !important;
+  }
+  
+  /* Decorative elements can have stronger effects */
+  .glass-pane.intensity-subtle {
+    filter: saturate(110%) contrast(110%) brightness(99%) blur(0.5px) !important;
+    -webkit-filter: saturate(110%) contrast(110%) brightness(99%) blur(0.5px) !important;
+  }
+  
+  .glass-pane.intensity-strong {
+    filter: saturate(140%) contrast(140%) brightness(96%) blur(2px) !important;
+    -webkit-filter: saturate(140%) contrast(140%) brightness(96%) blur(2px) !important;
   }
 }
