@@ -1,13 +1,22 @@
 # Liquid Glass Component Kit
 
-🍎 **Apple-inspired liquid glass morphism toolkit** for creating stunning glassmorphism UI components. A production-ready vanilla JavaScript library that brings beautiful liquid-glass effects to any HTML element with Apple-style polish and performance.
+🍎 **Apple-inspired liquid glass morphism toolkit** for creating stunning glassmorphism UI components.
+
+_Simply wrap buttons, images, form elements etc. Ensure they are positioned over a BG image, and voila!_
+
+A production-ready vanilla JavaScript library that brings beautiful liquid-glass effects to any HTML element with Apple-style polish and performance.
 
 Features complete glassmorphism effects including specular highlights, backdrop blur, color filters, SVG refraction, edge distortion, and chromatic aberration - inspired by Apple's design language and modern glass morphism trends.
+
+### Credit:
+
+**Wouldn’t have been possible without the incredible work documented here: [https://atlaspuplabs.com/blog/liquid-glass-but-in-css](https://atlaspuplabs.com/blog/liquid-glass-but-in-css)**
 
 ## ✨ Features
 
 - 🎯 **Simple Liquid-Glass API** - Pure functions, no classes, clean liquid-glass integration
-- 🔧 **Zero Dependencies** - Pure vanilla JavaScript liquid-glass library  
+- 🔧 **Zero Dependencies** - The vanilla JavaScript version doesnt need any. 
+- ⚛️ **React Support** - Set up with React too if thats how you roll
 - 📱 **Cross-browser Liquid-Glass** - Progressive enhancement with liquid-glass fallbacks
 - ⚡ **Optimized Liquid-Glass Effects** - Fast SVG filters and GPU-accelerated liquid-glass
 - 🎨 **Customizable Liquid-Glass** - Multiple liquid-glass intensity levels (subtle, normal, strong)
@@ -15,9 +24,17 @@ Features complete glassmorphism effects including specular highlights, backdrop 
 
 ## Installation
 
+### For Vanilla JavaScript Projects
 ```bash
 npm install liquid-glass-component-kit
 ```
+
+### For React Projects
+```bash
+npm install liquid-glass-component-kit react
+```
+
+> **Note**: React is an optional peer dependency. Vanilla JS users get zero React bloat - the React hooks are in a separate entry point (`/react`) that's only loaded when explicitly imported.
 
 ## Importing Styles
 
@@ -235,11 +252,6 @@ applyToMultiple(cards, { intensity: 'normal' });
 ```
 
 ## React Usage
-
-### Installation for React Projects
-```bash
-npm install liquid-glass-component-kit react
-```
 
 ### Import Styles
 First, import the required CSS styles:
