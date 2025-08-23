@@ -1,6 +1,6 @@
 {
   "name": "liquid-glass-component-kit",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Apple-inspired liquid glass morphism toolkit - Create stunning glassmorphism UI components with vanilla JavaScript",
   "type": "module",
   "main": "./dist/liquid-glass.umd.cjs",
@@ -59,7 +59,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/h0rhay/liquid-glass-component-kit.git"
+    "url": "git+https://github.com/h0rhay/liquid-glass-component-kit.git"
   },
   "bugs": {
     "url": "https://github.com/h0rhay/liquid-glass-component-kit/issues"
