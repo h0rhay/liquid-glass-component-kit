@@ -195,6 +195,43 @@ The library uses CSS `@supports` queries to provide:
 
 **Technical Note**: iOS Safari and Chrome don't support `backdrop-filter` with `url()` SVG filters. The library automatically detects this limitation using CSS `@supports` queries and provides appropriate fallbacks, ensuring consistent visual quality across all platforms without requiring JavaScript device detection.
 
+## SSR Compatibility
+
+The library is fully compatible with Server-Side Rendering frameworks like **Next.js**, **Remix**, **Nuxt**, and others:
+
+### How It Works
+- **Server**: Renders clean HTML with base glass effects (no SVG distortion)
+- **Client**: Detects browser capabilities and adds SVG enhancement after hydration
+- **No Hydration Mismatches**: HTML structure remains identical between server and client
+
+### Technical Implementation
+The library uses CSS custom properties for progressive enhancement:
+
+```javascript
+// Automatically sets on first effect application
+document.documentElement.style.setProperty('--svg-filters-enabled', '1');
+```
+
+```css
+/* Base effects - work everywhere */
+.liquid-glass {
+  backdrop-filter: blur(2.5px) saturate(120%) contrast(120%) brightness(98%);
+}
+
+/* Enhanced effects - only when capability is detected */
+@supports (backdrop-filter: url(#test)) {
+  html[style*="--svg-filters-enabled: 1"] .liquid-glass {
+    backdrop-filter: blur(2.5px) saturate(120%) url(#liquidGlassFilter);
+  }
+}
+```
+
+### Benefits
+- ✅ **Zero hydration issues** - Server and client HTML structure match
+- ✅ **Progressive enhancement** - Base effects work everywhere, SVG distortion on capable browsers
+- ✅ **Responsive** - Works at any browser size, responds to window resizing
+- ✅ **Framework agnostic** - Works with any SSR framework
+
 ## SVG Filter Compatibility
 
 ### The Mobile SVG Filter Issue
