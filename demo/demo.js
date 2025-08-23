@@ -40,16 +40,10 @@ function applyEffects() {
         elements.forEach(selector => {
             const element = document.querySelector(selector);
             if (element) {
-                // console.log(`Applying glass effect to:`, selector, element);
                 const effect = applyLiquidGlass(element, currentOptions);
                 currentEffects.push(effect);
-            } else {
-                // console.warn(`Element not found:`, selector);
             }
         });
-        // console.log(`Applied liquid glass with options:`, currentOptions);
-    } else {
-        // console.log('Glass effects disabled');
     }
 }
 
@@ -204,14 +198,7 @@ function updateSVGFilter() {
             displacement2.setAttribute('in', 'turbDisplaced');  // Keep turbulence only
         }
     }
-    
-    // console.log('Updated SVG filter with:', filterParams);
 }
-
-
-// Log for debugging
-// console.log('Liquid Glass Demo loaded');
-// console.log('Available functions:', { applyLiquidGlass, applyToMultiple, cleanupAll });
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
@@ -226,7 +213,6 @@ if (document.readyState === 'loading') {
 window.cleanupLiquidGlass = () => {
     currentEffects.forEach(effect => effect.remove());
     cleanupAll();
-    // console.log('All liquid glass effects cleaned up');
 };
 
 // For easy debugging in dev tools
@@ -236,8 +222,9 @@ window.demoState = {
     toggleEffects: () => document.getElementById('masterToggle').click(),
     checkElements: () => {
         elements.forEach(selector => {
-            document.querySelector(selector);
-            // console.log(`${selector}:`, el ? `found, classes: ${el.className}` : 'NOT FOUND');
+            const el = document.querySelector(selector);
+            // eslint-disable-next-line no-console
+            console.log(`${selector}:`, el ? `found, classes: ${el.className}` : 'NOT FOUND');
         });
     }
 };

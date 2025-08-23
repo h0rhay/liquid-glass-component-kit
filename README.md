@@ -174,6 +174,32 @@ The library uses CSS `@supports` queries to provide:
 
 **Technical Note**: iOS Safari and Chrome don't support `backdrop-filter` with `url()` SVG filters. The library automatically detects this limitation using CSS `@supports` queries and provides appropriate fallbacks, ensuring consistent visual quality across all platforms without requiring JavaScript device detection.
 
+## SVG Filter Compatibility
+
+### The Mobile SVG Filter Issue
+
+During development, we discovered that mobile browsers (particularly iOS Safari and Chrome) report support for `backdrop-filter: url(#filter)` via CSS `@supports` queries, but the SVG filters don't actually work and can break the entire backdrop-filter declaration.
+
+### Our Solution
+
+The library uses a sophisticated detection approach:
+
+```css
+/* Enhanced effects only for desktop browsers */
+@supports (backdrop-filter: url(#test)) and (hover: hover) and (pointer: fine) {
+  /* SVG distortion filters applied here */
+}
+```
+
+This ensures:
+- **Desktop browsers**: Get full SVG distortion effects
+- **Mobile browsers**: Get reliable backdrop-filter effects without problematic SVG URLs
+- **Older browsers**: Get graceful fallbacks
+
+### Why This Matters
+
+Without this detection, mobile users would see no glass effects at all because the SVG filter URL breaks the entire backdrop-filter property. Our approach guarantees that every user gets beautiful glass effects appropriate for their device.
+
 ## Performance
 
 The component is optimized for performance:
@@ -187,7 +213,7 @@ The component is optimized for performance:
 ### Button with Liquid Glass
 ```javascript
 const button = document.querySelector('.cta-button');
-applyLiquidGlass(button, { intensity: 'strong', intensity: 'subtle' });
+applyLiquidGlass(button, { intensity: 'strong' });
 ```
 
 ### Form Inputs

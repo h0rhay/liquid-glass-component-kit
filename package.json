@@ -27,7 +27,7 @@
     "dev:watch": "npm run build:demo && vite demo --watch",
     "build": "vite build && vite build -c vite.react.config.js && npm run build:types && npm run build:demo",
     "build:types": "cp lib/react.d.ts dist/react.d.ts",
-    "build:demo": "vite build && cp dist/liquid-glass.js demo/ && cp dist/style.css demo/",
+    "build:demo": "cp dist/liquid-glass.js demo/ && cp dist/style.css demo/",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
