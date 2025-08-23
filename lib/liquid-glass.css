@@ -228,56 +228,54 @@ input[type="reset"] .liquid-glass.intensity-strong {
   backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px);
 }
 
-/* Progressive enhancement - SVG distortion filters for desktop only */
-/* Apply SVG filters only on larger screens (desktop) to avoid mobile/tablet issues */
+/* Progressive enhancement - SVG distortion filters for capable browsers only */
+/* Apply SVG filters only when enabled via CSS custom property (SSR-safe) */
 @supports (backdrop-filter: url(#test)) {
-  @media (min-width: 1024px) {
-  .liquid-glass,
-  input.liquid-glass-direct,
-  img.liquid-glass-direct, 
-  textarea.liquid-glass-direct,
-  select.liquid-glass-direct,
-  [class*="liquid-glass-direct"] {
+  html[style*="--svg-filters-enabled: 1"] .liquid-glass,
+  html[style*="--svg-filters-enabled: 1"] input.liquid-glass-direct,
+  html[style*="--svg-filters-enabled: 1"] img.liquid-glass-direct, 
+  html[style*="--svg-filters-enabled: 1"] textarea.liquid-glass-direct,
+  html[style*="--svg-filters-enabled: 1"] select.liquid-glass-direct,
+  html[style*="--svg-filters-enabled: 1"] [class*="liquid-glass-direct"] {
     -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
     backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilter);
   }
   
-  button .liquid-glass,
-  .btn .liquid-glass,
-  input[type="button"] .liquid-glass,
-  input[type="submit"] .liquid-glass, 
-  input[type="reset"] .liquid-glass {
+  html[style*="--svg-filters-enabled: 1"] button .liquid-glass,
+  html[style*="--svg-filters-enabled: 1"] .btn .liquid-glass,
+  html[style*="--svg-filters-enabled: 1"] input[type="button"] .liquid-glass,
+  html[style*="--svg-filters-enabled: 1"] input[type="submit"] .liquid-glass, 
+  html[style*="--svg-filters-enabled: 1"] input[type="reset"] .liquid-glass {
     -webkit-backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
     backdrop-filter: saturate(120%) contrast(120%) brightness(98%) blur(2.5px) url(#liquidGlassFilterButton);
   }
   
-  .intensity-subtle {
+  html[style*="--svg-filters-enabled: 1"] .intensity-subtle {
     -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
     backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilter);
   }
   
-  .intensity-strong {
+  html[style*="--svg-filters-enabled: 1"] .intensity-strong {
     -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
     backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilter);
   }
   
-  button .liquid-glass.intensity-subtle,
-  .btn .liquid-glass.intensity-subtle,
-  input[type="button"] .liquid-glass.intensity-subtle,
-  input[type="submit"] .liquid-glass.intensity-subtle,
-  input[type="reset"] .liquid-glass.intensity-subtle {
+  html[style*="--svg-filters-enabled: 1"] button .liquid-glass.intensity-subtle,
+  html[style*="--svg-filters-enabled: 1"] .btn .liquid-glass.intensity-subtle,
+  html[style*="--svg-filters-enabled: 1"] input[type="button"] .liquid-glass.intensity-subtle,
+  html[style*="--svg-filters-enabled: 1"] input[type="submit"] .liquid-glass.intensity-subtle,
+  html[style*="--svg-filters-enabled: 1"] input[type="reset"] .liquid-glass.intensity-subtle {
     -webkit-backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
     backdrop-filter: saturate(110%) contrast(110%) brightness(99%) blur(2.5px) url(#liquidGlassFilterButton);
   }
   
-  button .liquid-glass.intensity-strong,
-  .btn .liquid-glass.intensity-strong,
-  input[type="button"] .liquid-glass.intensity-strong,
-  input[type="submit"] .liquid-glass.intensity-strong,
-  input[type="reset"] .liquid-glass.intensity-strong {
+  html[style*="--svg-filters-enabled: 1"] button .liquid-glass.intensity-strong,
+  html[style*="--svg-filters-enabled: 1"] .btn .liquid-glass.intensity-strong,
+  html[style*="--svg-filters-enabled: 1"] input[type="button"] .liquid-glass.intensity-strong,
+  html[style*="--svg-filters-enabled: 1"] input[type="submit"] .liquid-glass.intensity-strong,
+  html[style*="--svg-filters-enabled: 1"] input[type="reset"] .liquid-glass.intensity-strong {
     -webkit-backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
     backdrop-filter: saturate(140%) contrast(140%) brightness(96%) blur(2.5px) url(#liquidGlassFilterButton);
-  }
   }
 }
 
