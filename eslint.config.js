@@ -1,6 +1,13 @@
 export default [
   {
     files: ["lib/**/*.js", "demo/**/*.js"],
+    ignores: [
+      "dist/**/*",
+      "demo/liquid-glass.js",
+      "demo/style.css",
+      "node_modules/**/*",
+      "coverage/**/*"
+    ],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",

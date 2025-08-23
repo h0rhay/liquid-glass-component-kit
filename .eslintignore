@@ -1,0 +1,10 @@
+# Built files - don't lint generated code
+dist/
+demo/liquid-glass.js
+demo/style.css
+
+# Dependencies
+node_modules/
+
+# Test coverage
+coverage/
